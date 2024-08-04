@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+
 import { useNavigate } from 'react-router-dom';
 import InputTask from './InputTask';
 import Task from './Task';
@@ -26,7 +28,7 @@ const AllTasks = () => {
             );
 
             getAllTasks();
-            setInput({ title: "", description: "" });
+            setInput({ title: "", description: "", priority: "High" });
         } catch (error) {
             alert(error)
         }
@@ -61,17 +63,22 @@ const AllTasks = () => {
     return (
         <div>
             <InputTask onTaskAdd={handleTasks} />
-            {
-                tasks.length > 0 && tasks.map((task) => {
-                    return <Task
-                        key={task.id}
-                        id={task.id}
-                        task={task.data()}
-                        onDelete={handleDelete}
-                        onUpdate={handleUpdates}
-                    />
-                })
-            }
+            <Container>
+                <Row>
+                    {
+                        tasks.length > 0 && tasks.map((task) => {
+                            return <Task
+                                key={task.id}
+                                id={task.id}
+                                task={task.data()}
+                                onDelete={handleDelete}
+                                onUpdate={handleUpdates}
+                            />
+                        })
+                    }
+                </Row>
+            </Container>
+
         </div>
     )
 }

@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button, InputGroup, Card } from 'react-bootstrap';
+
 
 const Task = ({ id, task, onDelete, onUpdate }) => {
     const [isUpdate, setIsUpdate] = useState(false);
@@ -16,30 +18,50 @@ const Task = ({ id, task, onDelete, onUpdate }) => {
 
     return (
         !isUpdate ?
-            (<div>
-                <h3>{task.title}</h3>
-                <p>{task.description}</p>
-                <p>{task.priority}</p>
-                <button onClick={() => setIsUpdate(true)}>Update</button>
-                <button onClick={() => onDelete(id)}>Delete</button>
-            </div>) : (
-                <div>
-                    <input type='text' name='title' placeholder='Enter Title'
-                        onChange={handleUpdate} value={updateInput.title}
-                    />
+            (
+                <Col xs={12} md={6} lg={4}>
+                    <Card className="mb-3"
+                        border={task.priority === 'High' ? 'danger' :
+                            task.priority === 'Medium' ? 'warning' : 'success'}>
+                        <Card.Header>{task.title}</Card.Header>
+                        <Card.Body>
+                            <Card.Text>{task.description}</Card.Text>
+                            <Card.Text>{task.priority}</Card.Text>
+                            <Button variant="success" className='m-1' onClick={() => setIsUpdate(true)}>Update</Button>
+                            <Button variant="danger" onClick={() => onDelete(id)}>Delete</Button>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            ) : (
+                <Col xs={12} md={6} lg={4}>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="basic-addon3">
+                            Title
+                        </InputGroup.Text>
+                        <Form.Control id="basic-url" aria-describedby="basic-addon3"
+                            name='title' onChange={handleUpdate} value={updateInput.title}
+                        />
+                    </InputGroup>
 
-                    <input type='text' name='description' placeholder='Enter Description'
-                        onChange={handleUpdate} value={updateInput.description}
-                    />
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text>Description</InputGroup.Text>
+                        <Form.Control as="textarea" aria-label="With textarea"
+                            name='description' onChange={handleUpdate} value={updateInput.description}
+                        />
+                    </InputGroup>
 
-                    <select name='priority' onChange={handleUpdate}>
-                        <option value='High' selected={task.priority === 'High' ? true : false}>High</option>
-                        <option value='Medium' selected={task.priority === 'Medium' ? true : false}>Medium</option>
-                        <option value='Low' selected={task.priority === 'Low' ? true : false}>Low</option>
-                    </select>
+                    <Form.Select name='priority' onChange={handleUpdate}>
+                        <option value="High" selected={task.priority === 'High' ? true : false}>High</option>
+                        <option value="Medium" selected={task.priority === 'Medium' ? true : false}>Medium</option>
+                        <option value="Low" selected={task.priority === 'Low' ? true : false}>Low</option>
+                    </Form.Select>
 
-                    <button onClick={() => onUpdate(id, updateInput, setIsUpdate)}>Save</button>
-                </div>
+                    <Button className='m-3' variant="success"
+                        onClick={() => onUpdate(id, updateInput, setIsUpdate)}>Save</Button>
+
+                    <Button variant="danger"
+                        onClick={() => setIsUpdate(false)}>Cancel</Button>
+                </Col>
             )
     )
 }

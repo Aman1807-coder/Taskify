@@ -17,7 +17,6 @@ const Signup = () => {
         if (firebase.isLoggedIn) {
             navigate('/')
         };
-
     }, [firebase, navigate]);
 
     const handleInputSignup = (event) => {

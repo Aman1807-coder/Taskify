@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+
 import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../context/firebase';
 
@@ -19,7 +22,8 @@ const Signin = () => {
         setInputSignin((prev) => ({ ...prev, [name]: value }));
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
             const res = await firebase.signinUserWithEmailAndPassword(inputSignin.email, inputSignin.password)
 
@@ -29,15 +33,32 @@ const Signin = () => {
     }
 
     return (
-        <div>
-            <input type='email' name='email'
-                placeholder='Enter Email' onChange={handleInputSignin} />
-            <input type='password' name='password'
-                placeholder='Enter Password' onChange={handleInputSignin} />
-            <button onClick={handleSubmit}>Signin</button>
-            <h4>OR</h4>
-            <button onClick={firebase.signinWithGoogle}>Signin with Google</button>
-        </div>
+        <Container>
+            <Row className="justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+                <Col xs={12} md={6} lg={4}>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" name='email'
+                                placeholder="Enter email" onChange={handleInputSignin} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name='password'
+                                placeholder="Password" onChange={handleInputSignin} />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                    <h4>OR</h4>
+                    <Button variant="danger"
+                        onClick={firebase.signinWithGoogle}>Signin with Google</Button>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

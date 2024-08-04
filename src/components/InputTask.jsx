@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+
 
 const InputTask = (props) => {
     const [input, setInput] = useState({
@@ -6,28 +9,41 @@ const InputTask = (props) => {
     });
 
     const handleInput = (event) => {
-        const {name, value} = event.target;
-        setInput((prev) => ({...prev, [name]: value}));
+        const { name, value } = event.target;
+        setInput((prev) => ({ ...prev, [name]: value }));
     }
 
     return (
-        <div>
-            <input type='text' name='title' placeholder='Enter Title'
-                onChange={handleInput} value={input.title}
-            />
+        <Container>
+            <Row className="mt-3 justify-content-center" style={{ minHeight: '50vh' }}>
+                <Col xs={12} md={6} lg={4}>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="basic-addon3">
+                            Title
+                        </InputGroup.Text>
+                        <Form.Control id="basic-url" aria-describedby="basic-addon3"
+                            name='title' onChange={handleInput} value={input.title}
+                        />
+                    </InputGroup>
 
-            <input type='text' name='description' placeholder='Enter Description'
-                onChange={handleInput} value={input.description}
-            />
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text>Description</InputGroup.Text>
+                        <Form.Control as="textarea" aria-label="With textarea"
+                            name='description' onChange={handleInput} value={input.description}
+                        />
+                    </InputGroup>
 
-            <select name='priority' onChange={handleInput}>
-                <option value='High'>High</option>
-                <option value='Medium'>Medium</option>
-                <option value='Low'>Low</option>
-            </select>
+                    <Form.Select name='priority' onChange={handleInput}>
+                        <option value="High" selected={input.priority === 'High' ? true : false}>High</option>
+                        <option value="Medium" selected={input.priority === 'Medium' ? true : false}>Medium</option>
+                        <option value="Low" selected={input.priority === 'Low' ? true : false}>Low</option>
+                    </Form.Select>
 
-            <button onClick={() => props.onTaskAdd(input, setInput)}>Add Task</button>
-        </div>
+                    <Button className='mt-3' variant="danger"
+                        onClick={() => props.onTaskAdd(input, setInput)}>Add Task</Button>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 
