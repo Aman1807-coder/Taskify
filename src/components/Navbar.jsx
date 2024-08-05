@@ -14,7 +14,7 @@ const NavBar = () => {
             console.log(res)
             navigate('/signin');
         } catch (error) {
-            alert(error);
+            alert(error.messgae);
         }
     }
 

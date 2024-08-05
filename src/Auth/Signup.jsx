@@ -30,7 +30,7 @@ const Signup = () => {
         try {
             const res = await firebase.signupUserWithEmailAndPassword(inputSignup.email, inputSignup.password)
         } catch (error) {
-            alert(error)
+            alert(error.message)
         }
     }
 

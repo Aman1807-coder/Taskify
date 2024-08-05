@@ -23,11 +23,21 @@ const Task = ({ id, task, onDelete, onUpdate }) => {
                     <Card className="mb-3"
                         border={task.priority === 'High' ? 'danger' :
                             task.priority === 'Medium' ? 'warning' : 'success'}>
-                        <Card.Header>{task.title}</Card.Header>
+                        <Card.Header>
+                            <Row>
+                                <Col xs={9}>
+                                    {task.title}
+                                </Col>
+                                <Col>
+                                    <span style={{
+                                        color: task.priority === 'High' ? 'red' :
+                                            task.priority === 'Medium' ? 'orange' : 'green',
+                                    }}>{task.priority}</span>
+                                </Col>
+                            </Row>
+                        </Card.Header>
                         <Card.Body>
-                            <Card.Text>{task.description}</Card.Text>
-                            <Card.Text>{task.priority}</Card.Text>
-                            <Button variant="success" className='m-1' onClick={() => setIsUpdate(true)}>Update</Button>
+                            <Card.Text>{task.description}</Card.Text>                            <Button variant="success" className='m-1' onClick={() => setIsUpdate(true)}>Update</Button>
                             <Button variant="danger" onClick={() => onDelete(id)}>Delete</Button>
                         </Card.Body>
                     </Card>

@@ -5,7 +5,7 @@ import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 
 const InputTask = (props) => {
     const [input, setInput] = useState({
-        title: '', description: '', priority: 'High'
+        title: '', description: '', priority: ''
     });
 
     const handleInput = (event) => {
@@ -34,6 +34,7 @@ const InputTask = (props) => {
                     </InputGroup>
 
                     <Form.Select name='priority' onChange={handleInput}>
+                        <option>Select Priority</option>
                         <option value="High" selected={input.priority === 'High' ? true : false}>High</option>
                         <option value="Medium" selected={input.priority === 'Medium' ? true : false}>Medium</option>
                         <option value="Low" selected={input.priority === 'Low' ? true : false}>Low</option>

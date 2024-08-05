@@ -17,7 +17,7 @@ const AllTasks = () => {
             const res = await firebase.listAllTasks()
             setTasks(res.docs)
         } catch (error) {
-            alert(error)
+            alert(error.messgae)
         }
     }
 
@@ -28,9 +28,9 @@ const AllTasks = () => {
             );
 
             getAllTasks();
-            setInput({ title: "", description: "", priority: "High" });
+            setInput({ title: "", description: "", priority: "" });
         } catch (error) {
-            alert(error)
+            alert(error.messgae)
         }
     }
 
@@ -39,7 +39,7 @@ const AllTasks = () => {
             const res = await firebase.handleTaskDelete(id);
             getAllTasks();
         } catch (error) {
-            alert(error)
+            alert(error.messgae)
         }
     }
 
@@ -51,7 +51,7 @@ const AllTasks = () => {
             getAllTasks();
             setIsUpdate(false)
         } catch (error) {
-            alert(error)
+            alert(error.messgae)
         }
     }
 

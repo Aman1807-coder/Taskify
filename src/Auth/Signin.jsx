@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button , Card} from 'react-bootstrap';
 
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -29,7 +29,7 @@ const Signin = () => {
             const res = await firebase.signinUserWithEmailAndPassword(inputSignin.email, inputSignin.password)
 
         } catch (error) {
-            alert(error)
+            alert(error.message)
         }
     }
 
@@ -49,7 +49,7 @@ const Signin = () => {
                             <Form.Control type="password" name='password'
                                 placeholder="Password" onChange={handleInputSignin} />
                         </Form.Group>
-                        
+
                         <Row>
                             <Col xs={4}>
                                 <Button variant="primary" type="submit">
@@ -61,9 +61,10 @@ const Signin = () => {
                                 <NavLink to="/signup">Signup</NavLink>
                             </Col>
                         </Row>
+                        <Card.Header className='mt-3'>OR</Card.Header>
                     </Form>
-                    <h4>OR</h4>
-                    <Button variant="danger"
+
+                    <Button variant="danger" className='mt-3'
                         onClick={firebase.signinWithGoogle}>Signin with Google</Button>
                 </Col>
             </Row>

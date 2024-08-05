@@ -12,11 +12,14 @@ import {
 import {
     getFirestore,
     collection,
+    query,
+    orderBy,
     doc,
     addDoc,
     getDocs,
     updateDoc,
-    deleteDoc
+    deleteDoc,
+    serverTimestamp
 } from "firebase/firestore";
 
 const FirebaseContext = createContext(null);
@@ -65,6 +68,7 @@ export const FirebaseProvider = (props) => {
                 title,
                 description,
                 priority,
+                createdAt: serverTimestamp(),
                 userId: user.uid,
                 userEmail: user.email,
                 displayName: user.displayName
@@ -72,7 +76,7 @@ export const FirebaseProvider = (props) => {
 
             return res;
         } catch (error) {
-            alert(error);
+            alert(error.messgae);
         }
     }
 
@@ -87,7 +91,7 @@ export const FirebaseProvider = (props) => {
 
             return res;
         } catch (error) {
-            alert(error)
+            alert(error.messgae)
         }
     }
 
@@ -97,12 +101,13 @@ export const FirebaseProvider = (props) => {
             const res = await deleteDoc(taskRef);
             return res;
         } catch (error) {
-            alert(error)
+            alert(error.messgae)
         }
     }
 
-    const listAllTasks = () => {
-        return getDocs(collection(firestore, 'tasks'));
+    const listAllTasks = async() => {
+        const q = query(collection(firestore, "tasks"), orderBy("createdAt", "asc"));
+        return await getDocs(q);
     }
 
     const signinWithGoogle = () => signInWithPopup(firebaseAuth, googleProvider);
