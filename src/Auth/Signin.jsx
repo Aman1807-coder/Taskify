@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useFirebase } from '../context/firebase';
 
 const Signin = () => {
@@ -48,10 +49,18 @@ const Signin = () => {
                             <Form.Control type="password" name='password'
                                 placeholder="Password" onChange={handleInputSignin} />
                         </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
+                        
+                        <Row>
+                            <Col xs={4}>
+                                <Button variant="primary" type="submit">
+                                    Submit
+                                </Button>
+                            </Col>
+                            <Col xs='auto'>
+                                <span>Haven't Signedup yet? </span>
+                                <NavLink to="/signup">Signup</NavLink>
+                            </Col>
+                        </Row>
                     </Form>
                     <h4>OR</h4>
                     <Button variant="danger"

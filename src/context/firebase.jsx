@@ -6,7 +6,8 @@ import {
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signOut
 } from "firebase/auth";
 import {
     getFirestore,
@@ -43,7 +44,7 @@ export const FirebaseProvider = (props) => {
     useEffect(() => {
         onAuthStateChanged(firebaseAuth, (user) => {
             if (user) setUser(user);
-            else user(null);
+            else setUser(null);
         })
     }, []);
 
@@ -54,6 +55,9 @@ export const FirebaseProvider = (props) => {
 
     const signinUserWithEmailAndPassword = (email, password) =>
         signInWithEmailAndPassword(firebaseAuth, email, password);
+
+    const signoutUser = () =>
+        signOut(firebaseAuth);
 
     const handleTaskAdd = async (title, description, priority) => {
         try {
@@ -108,11 +112,13 @@ export const FirebaseProvider = (props) => {
             signupUserWithEmailAndPassword,
             signinUserWithEmailAndPassword,
             signinWithGoogle,
+            signoutUser,
             handleTaskAdd,
             listAllTasks,
             handleTaskUpdate,
             handleTaskDelete,
-            isLoggedIn
+            isLoggedIn,
+            user
         }}>
             {props.children}
         </FirebaseContext.Provider>
