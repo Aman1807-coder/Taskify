@@ -22,6 +22,17 @@ const AllTasks = () => {
     }
 
     const handleTasks = async (input, setInput) => {
+        if (input.title.trim().length === 0) {
+            alert("Title cannot be left empty");
+            return;
+        } else if (input.description.trim().length === 0) {
+            alert("Description cannot be left empty");
+            return;
+        } else if (input.priority.trim().length === 0) {
+            alert("Please specify a Priority for your task");
+            return;
+        }
+
         try {
             const res = await firebase.handleTaskAdd(
                 input.title, input.description, input.priority
@@ -44,6 +55,17 @@ const AllTasks = () => {
     }
 
     const handleUpdates = async (id, updateInput, setIsUpdate) => {
+        if (updateInput.title.trim().length === 0) {
+            alert("Title cannot be left empty");
+            return;
+        } else if (updateInput.description.trim().length === 0) {
+            alert("Description cannot be left empty");
+            return;
+        } else if (updateInput.priority.trim().length === 0) {
+            alert("Please specify a Priority for your task");
+            return;
+        }
+
         try {
             const res = await firebase.handleTaskUpdate(
                 id, updateInput.title, updateInput.description, updateInput.priority

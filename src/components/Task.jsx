@@ -16,6 +16,14 @@ const Task = ({ id, task, onDelete, onUpdate }) => {
         }));
     }
 
+    const handleCancelUpdate = () => {
+        updateInput.title = task.title;
+        updateInput.description = task.description;
+        updateInput.priority = task.priority;
+
+        setIsUpdate(false);
+    }
+
     return (
         !isUpdate ?
             (
@@ -70,7 +78,7 @@ const Task = ({ id, task, onDelete, onUpdate }) => {
                         onClick={() => onUpdate(id, updateInput, setIsUpdate)}>Save</Button>
 
                     <Button variant="danger"
-                        onClick={() => setIsUpdate(false)}>Cancel</Button>
+                        onClick={handleCancelUpdate}>Cancel</Button>
                 </Col>
             )
     )
